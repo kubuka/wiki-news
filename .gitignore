@@ -14,3 +14,6 @@ wikiexample.json
 
 #mac
 .ds_store
+
+.env
+wiki-spark-key.json
