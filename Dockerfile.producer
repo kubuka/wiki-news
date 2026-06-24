@@ -1,0 +1,9 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN pip install --no-cache-dir requests confluent-kafka python-dotenv
+
+COPY scripts/stream_producer.py /app/stream_producer.py
+
+CMD ["python3", "stream_producer.py"]
