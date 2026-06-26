@@ -45,5 +45,43 @@ services:
     command: [ "--create", "--if-not-exists", "--bootstrap-server", "kafka:29092", "--topic", "wiki_raw_stream", "--partitions", "1", "--replication-factor", "1" ]
     restart: "no"
 
+  wiki-producer:
+    build:
+      context: .
+      dockerfile: Dockerfile.producer
+    container_name: wiki-producer
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+    volumes:
+      - ./.env:/app/.env:ro
+    restart: unless-stopped
+
+  spark-processor:
+    build:
+      context: .
+      dockerfile: Dockerfile.spark
+    container_name: spark-processor
+    depends_on:
+      wiki-producer:
+        condition: service_started
+    volumes:
+      - ./creds:/opt/spark/creds:ro
+      - ./checkpoints:/tmp/spark_checkpoints
+      - ./.env:/app/.env:ro
+    command: python3 /app/stream_processor.py
+    restart: unless-stopped
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
+    container_name: wiki-dashboard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./.env:/app/.env:ro
+      - ./creds:/opt/spark/creds:ro
+
 volumes:
   kafka_data:

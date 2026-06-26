@@ -4,16 +4,24 @@ from google.cloud import bigquery
 import os
 import plotly.express as px
 from datetime import timedelta
+import dotenv
 
-# adc
-client = bigquery.Client()
+dotenv.load_dotenv()
+gcp_key_path = os.getenv("GCP_CREDS_PATH")
+
+if gcp_key_path and os.path.exists(gcp_key_path):
+    client = bigquery.Client.from_service_account_json(gcp_key_path)
+else:
+    # adc
+    client = bigquery.Client()
+
 
 st.set_page_config(
     page_title="Wikipedia Real-Time Monitor", layout="wide", page_icon="🌍"
 )
 st.title("🌍 Wikipedia Real-Time Trend Monitor")
 
-GCP_PROJECT_ID = "wiki-news-499909"  # zmienic pozniej na env
+GCP_PROJECT_ID = os.getenv("GCP_PROJECT_ID")  # zmienic pozniej na env
 
 query_bots_vs_humans = f"""
     SELECT 
