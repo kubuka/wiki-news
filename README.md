@@ -160,6 +160,7 @@ The interface is divided into three distinct sections:
 
 3. `Trending by Language` - A dynamic dropdown menu populated with active Wikipedia domains. It displays a horizontal Bar Chart of the Top 10 trending articles for the selected language. The data is fetched using a single SQL query with a ROW_NUMBER() Window Function to efficiently get the top articles for all domains at once.
 
+<img width="800" height="450" alt="ezgif-4899071f5e9c86b9" src="https://github.com/user-attachments/assets/4a1461e4-7be7-47d8-ab5c-a63d79a620a0" />
 
 
 ---
