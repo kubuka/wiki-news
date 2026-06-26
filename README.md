@@ -14,14 +14,14 @@ The system pulls raw logs directly from the Wikimedia EventStreams API, buffers 
 
 ## Table of Contents
 
-1. Project Structure
-2. Tech Stack
-3. The Streaming Pipeline
-4. Stream Processing Logic
-5. Dashboard
-6. Dockerization
-7. Summary and Key Learnings
-8. Before You Run
+1. [Project Structure](#project-structure)
+2. [Tech Stack](#tech-stack)
+3. [Streaming Pipeline](#streaming-pipeline)
+4. [Stream Processing Logic](#stream-processing-logic)
+5. [Dashboard](#dashboard)
+6. [Dockerization](#dockerization)
+7. [Summary and Key Learnings](#summary-and-key-learnings)
+8. [Before You Run](#before-you-run)
 
 ---
 ## Project Structure
@@ -159,6 +159,7 @@ The interface is divided into three distinct sections:
 2. `Global Hot Topics` - Highlights the top 3 most edited articles worldwide in the last hour.
 
 3. `Trending by Language` - A dynamic dropdown menu populated with active Wikipedia domains. It displays a horizontal Bar Chart of the Top 10 trending articles for the selected language. The data is fetched using a single SQL query with a ROW_NUMBER() Window Function to efficiently get the top articles for all domains at once.
+
 
 
 ---
